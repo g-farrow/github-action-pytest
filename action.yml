@@ -1,0 +1,21 @@
+name: 'github-action-pytest'
+description: 'Run PyTest tests'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+inputs:
+  deps:
+    required: false
+    description: 'Comma (,) separated list of requirements files to be installed (using pip install -r <file path>)'
+    default: 'false'
+  pytests_dir:
+    required: false
+    description: 'Provide a directory or specific filepath which contains the tests to run (default: `tests`)'
+    default: 'tests'
+  pytest_args:
+    required: false
+    description: 'Provide any commandline options for PyTest (default: none)'
+    default: ''
