@@ -3,18 +3,9 @@
 set -e
 set -u
 
-moveDir(){
-  if [ "${GITHUB_WORKSPACE:-notset}" = "notset" ]; then
-    echo "Running outside of Github, skipping cd"
-  else
-    ls -l
-    cd "${GITHUB_WORKSPACE}"
-  fi
-}
-
 installDependenciesFromFile(){
   echo "Installing $1"
-  pip install -r "$1"
+  pip install -r "${GITHUB_WORKSPACE}$1"
   if ! pip install -r "$1"; then
     echo "Failed to install $1"
   else
@@ -24,7 +15,7 @@ installDependenciesFromFile(){
 
 installProjectDependencies() {
   if [ -z "${INPUT_DEPS}" ] || [ "${INPUT_DEPS}" = "false" ]; then
-    if [ -e "requirements.txt" ]; then
+    if [ -e "${GITHUB_WORKSPACE}/requirements.txt" ]; then
       echo "Found default requirements.txt, installing"
       installDependenciesFromFile "requirements.txt"
     else
@@ -57,13 +48,14 @@ runTests() {
 
 main() {
   echo "Starting.........."
-  moveDir
+  if [ "${GITHUB_WORKSPACE:-notset}" = "notset" ]; then
+    echo "Running outside of Github, skipping"
+    exit
+  fi
   installProjectDependencies
   echo "Dependencies installed"
   runTests
   echo "..........Completed"
 }
 
-pwd
-ls -l
 main
