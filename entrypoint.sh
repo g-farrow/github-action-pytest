@@ -14,7 +14,7 @@ installDependenciesFromFile(){
 }
 
 installProjectDependencies() {
-  if [ "${INPUT_DEPS}" = "false" ]; then
+  if [ -z "${INPUT_DEPS}" ] || [ "${INPUT_DEPS}" = "false" ]; then
     if [ -e "requirements.txt" ]; then
       echo "Found default requirements.txt, installing"
       installDependenciesFromFile "requirements.txt"
@@ -32,18 +32,24 @@ installProjectDependencies() {
 }
 
 runTests() {
-  if [ -z "${INPUT_PYTEST_DIR}" ] && [ -z "${INPUT_PYTEST_DIR}" ]; then
-    sh -c "pytest ${INPUT_PYTEST_DIR} ${INPUT_PYTEST_ARGS}"
-  elif [ -z "${INPUT_PYTEST_DIR}" ]; then
-    sh -c "pytest ${INPUT_PYTEST_DIR}"
-  elif [ -z "${INPUT_PYTEST_ARGS}" ]; then
-    sh -c "pytest ${INPUT_PYTEST_ARGS}"
+  if [ "${INPUT_PYTEST_DIR}" = "" ]; then
+    echo "PyTest directory/file not provided, skipping test run"
+  else
+    echo "PyTest running a directory/file: ${INPUT_PYTEST_DIR}"
+    if [ "${INPUT_PYTEST_ARGS}" = "" ]; then
+      echo "Running PyTest without any custom arguments"
+      sh -c "pytest ${INPUT_PYTEST_DIR}"
+    else
+      echo "Running PyTest with custom arguments: ${INPUT_PYTEST_ARGS}"
+      sh -c "pytest ${INPUT_PYTEST_DIR} ${INPUT_PYTEST_ARGS}"
+    fi
   fi
 }
 
 main() {
   echo "Starting.........."
   installProjectDependencies
+  echo "Dependencies installed"
   runTests
   echo "..........Completed"
 }
