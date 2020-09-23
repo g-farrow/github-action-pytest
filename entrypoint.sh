@@ -3,6 +3,14 @@
 set -e
 set -u
 
+moveDir(){
+  if [ "${GITHUB_WORKSPACE:-notset}" = "notset" ]; then
+    echo "Running outside of Github, skipping cd"
+  else
+    cd "${GITHUB_WORKSPACE}"
+  fi
+}
+
 installDependenciesFromFile(){
   echo "Installing $1"
   pip install -r "$1"
@@ -35,7 +43,6 @@ runTests() {
   if [ "${INPUT_PYTEST_DIR}" = "" ]; then
     echo "PyTest directory/file not provided, skipping test run"
   else
-    cd "${GITHUB_WORKSPACE}"/"${INPUT_WORKING_DIR}"
     echo "PyTest running a directory/file: ${INPUT_PYTEST_DIR}"
     if [ "${INPUT_PYTEST_ARGS}" = "" ]; then
       echo "Running PyTest without any custom arguments"
@@ -49,6 +56,7 @@ runTests() {
 
 main() {
   echo "Starting.........."
+  moveDir
   installProjectDependencies
   echo "Dependencies installed"
   runTests
