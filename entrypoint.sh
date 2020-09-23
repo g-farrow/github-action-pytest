@@ -5,7 +5,7 @@ set -u
 
 installDependenciesFromFile(){
   echo "Installing $1"
-  pip install -r "${GITHUB_WORKSPACE}$1"
+  pip install -r "${GITHUB_WORKSPACE}/$1"
   if ! pip install -r "$1"; then
     echo "Failed to install $1"
   else
