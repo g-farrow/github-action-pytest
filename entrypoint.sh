@@ -4,10 +4,10 @@ set -e
 set -u
 
 moveDir(){
-  pwd
   if [ "${GITHUB_WORKSPACE:-notset}" = "notset" ]; then
     echo "Running outside of Github, skipping cd"
   else
+    ls -l
     cd "${GITHUB_WORKSPACE}"
   fi
 }
@@ -64,4 +64,6 @@ main() {
   echo "..........Completed"
 }
 
+pwd
+ls -l
 main
