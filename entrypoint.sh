@@ -32,7 +32,13 @@ installProjectDependencies() {
 }
 
 runTests() {
-  sh -c "pytest ${INPUT_PYTEST_DIR} ${INPUT_PYTEST_ARGS}"
+  if [ -z "${INPUT_PYTEST_DIR}" ] && [ -z "${INPUT_PYTEST_DIR}" ]; then
+    sh -c "pytest ${INPUT_PYTEST_DIR} ${INPUT_PYTEST_ARGS}"
+  elif [ -z "${INPUT_PYTEST_DIR}" ]; then
+    sh -c "pytest ${INPUT_PYTEST_DIR}"
+  elif [ -z "${INPUT_PYTEST_ARGS}" ]; then
+    sh -c "pytest ${INPUT_PYTEST_ARGS}"
+  fi
 }
 
 main() {
