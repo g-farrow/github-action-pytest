@@ -35,6 +35,7 @@ runTests() {
   if [ "${INPUT_PYTEST_DIR}" = "" ]; then
     echo "PyTest directory/file not provided, skipping test run"
   else
+    cd "${GITHUB_WORKSPACE}"/"${INPUT_WORKING_DIR}"
     echo "PyTest running a directory/file: ${INPUT_PYTEST_DIR}"
     if [ "${INPUT_PYTEST_ARGS}" = "" ]; then
       echo "Running PyTest without any custom arguments"
