@@ -5,7 +5,7 @@ set -u
 
 installDependenciesFromFile(){
   echo "Installing $1"
-  pip install -r "${GITHUB_WORKSPACE}/$1"
+  pip install -r "$1"
   if ! pip install -r "$1"; then
     echo "Failed to install $1"
   else
@@ -15,7 +15,7 @@ installDependenciesFromFile(){
 
 installProjectDependencies() {
   if [ -z "${INPUT_DEPS}" ] || [ "${INPUT_DEPS}" = "false" ]; then
-    if [ -e "${GITHUB_WORKSPACE}/requirements.txt" ]; then
+    if [ -e "requirements.txt" ]; then
       echo "Found default requirements.txt, installing"
       installDependenciesFromFile "requirements.txt"
     else
@@ -57,5 +57,6 @@ main() {
   runTests
   echo "..........Completed"
 }
-
+ls -l
+ls -l lambda_layer
 main
