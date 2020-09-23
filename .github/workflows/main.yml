@@ -18,7 +18,7 @@ jobs:
         run: docker build . --file Dockerfile --tag image
 
       - name: Docker run
-        run: docker run  image
+        run: docker run image -e INPUT_DEPS -e INPUT_PYTEST_DIR -e INPUT_PYTEST_ARGS
   
   lint:
     # Name the Job
