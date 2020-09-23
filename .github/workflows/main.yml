@@ -18,7 +18,7 @@ jobs:
         run: docker build . --file Dockerfile --tag image
 
       - name: Docker run
-        run: docker run --entrypoint cdk image --version
+        run: docker run  image
   
   lint:
     # Name the Job
