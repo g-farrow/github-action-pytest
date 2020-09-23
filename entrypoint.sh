@@ -14,7 +14,7 @@ installDependenciesFromFile(){
 }
 
 installProjectDependencies() {
-  if [ "${INPUT_DEPS}" == "false" ]; then
+  if [ "${INPUT_DEPS}" = "false" ]; then
     if [ -e "requirements.txt" ]; then
       echo "Found default requirements.txt, installing"
       installDependenciesFromFile "requirements.txt"
@@ -23,8 +23,8 @@ installProjectDependencies() {
 		fi
   else
     echo "Installing requirements from: ${INPUT_DEPS}"
-    read -a -r strarr <<<"${INPUT_DEPS}"
-    for requirements_file in $strarr
+    IFS=','
+    for requirements_file in ${INPUT_DEPS}
     do
       installDependenciesFromFile "${requirements_file}"
     done
