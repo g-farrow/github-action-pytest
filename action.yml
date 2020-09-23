@@ -11,7 +11,7 @@ inputs:
     required: false
     description: 'Comma (,) separated list of requirements files to be installed (using pip install -r <file path>)'
     default: 'false'
-  pytests_dir:
+  pytest_dir:
     required: false
     description: 'Provide a directory or specific filepath which contains the tests to run (default: `tests`)'
     default: 'tests'
