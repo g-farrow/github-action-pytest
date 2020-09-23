@@ -57,6 +57,5 @@ main() {
   runTests
   echo "..........Completed"
 }
-ls -l
-ls -l lambda_layer
+
 main
