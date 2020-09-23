@@ -36,10 +36,10 @@ runTests() {
 }
 
 main() {
-  echo "Starting ${GITHUB_WORKFLOW}:${GITHUB_ACTION}.........."
+  echo "Starting.........."
   installProjectDependencies
   runTests
-  echo "..........Completed ${GITHUB_WORKFLOW}:${GITHUB_ACTION}"
+  echo "..........Completed"
 }
 
 main
