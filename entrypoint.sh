@@ -38,10 +38,10 @@ runTests() {
     echo "PyTest running a directory/file: ${INPUT_PYTEST_DIR}"
     if [ "${INPUT_PYTEST_ARGS}" = "" ]; then
       echo "Running PyTest without any custom arguments"
-      sh -c "python -m pytest ${INPUT_PYTEST_DIR}"
+      sh -c "pytest ${INPUT_PYTEST_DIR}"
     else
       echo "Running PyTest with custom arguments: ${INPUT_PYTEST_ARGS}"
-      sh -c "python -m pytest ${INPUT_PYTEST_DIR} ${INPUT_PYTEST_ARGS}"
+      sh -c "pytest ${INPUT_PYTEST_DIR} ${INPUT_PYTEST_ARGS}"
     fi
   fi
 }
