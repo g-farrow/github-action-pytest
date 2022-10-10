@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
 
       - name: Docker build
         run: docker build . --file Dockerfile --tag image
@@ -34,7 +34,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.1.0
 
       ################################
       # Run Linter against code base #
